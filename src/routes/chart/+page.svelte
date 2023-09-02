@@ -5,16 +5,26 @@
 
 <script>
 	import { onMount } from 'svelte';
-  	import { countryDataStore, fetchCountryData } from './countryDataStore';
+  	import { countryDataStore, fetchCountryData } from '../../lib/stores/countryDataStore';
   import ChartCountry from './ChartCountry.svelte';
 
 	let countries = []; // Initialize as an empty array
+	export let top10Countries = [];
+	  // Function to get the top 10 countries by population
+	function getTop10Countries(countries) {
+		return countries
+		.slice()
+		.sort((a, b) => b.population - a.population)
+		.slice(0, 10);
+	}
 
   // Use onMount to fetch data when the component is mounted
   onMount(() => {
     fetchCountryData().then(() => {
       // Access the data from the store after it's fetched
       countries = $countryDataStore;
+	  top10Countries = getTop10Countries(countries);
+	  
     });
   });
   </script>
@@ -31,34 +41,38 @@
 
 
 
-<div class="flex items-start justify-between">
-	<table class="bg-white table-auto">
-		<thead>
-		  <tr>
-			<th class="w-auto">Flag</th>
-			<th class="w-auto">Name</th>
-			<th class="w-auto">CIOC</th>
-			<th class="w-[15%]">UN Member Status</th>
-			<th class="w-[14%]">Currencies (Key)</th>
-			<th class="w-auto">Population</th>
-			<th class="w-auto">Languages</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  {#each countries as country}
-			<tr>
-			  <td><img src={country.flags.png} alt={country.name.common} width="50" /></td>
-			  <td>{country.name.common}</td>
-			  <td>{country.cioc || ""}</td>
-			  <td>{country.unMember ? 'Yes' : 'No'}</td>
-			  <td>{country.currencies && Object.keys(country.currencies || {}).join(', ')}</td>
-			  <td>{country.population}</td>
-			  <td>{Object.values(country.languages || {})?.join(", ")}</td>
-			</tr>
-		  {/each}
-		</tbody>
-	</table>
-	<ChartCountry/>
+<div class="w-full flex items-start justify-between">
+	<div class="w-1/2">
+		<table class="bg-white table-auto">
+			<thead>
+			  <tr>
+				<th class="w-auto">Flag</th>
+				<th class="w-auto">Name</th>
+				<th class="w-auto">CIOC</th>
+				<th class="w-[15%]">UN Member Status</th>
+				<th class="w-[14%]">Currencies (Key)</th>
+				<th class="w-auto">Population</th>
+				<th class="w-auto">Languages</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  {#each countries as country}
+				<tr>
+				  <td><img src={country.flags.png} alt={country.name.common} width="50" /></td>
+				  <td>{country.name.common}</td>
+				  <td>{country.cioc || ""}</td>
+				  <td>{country.unMember ? 'Yes' : 'No'}</td>
+				  <td>{country.currencies && Object.keys(country.currencies || {}).join(', ')}</td>
+				  <td>{country.population}</td>
+				  <td>{Object.values(country.languages || {})?.join(", ")}</td>
+				</tr>
+			  {/each}
+			</tbody>
+		</table>
+	</div>
+	<div class="w-1/2">
+		<ChartCountry />
+	</div>
 </div>
   
  <style>
