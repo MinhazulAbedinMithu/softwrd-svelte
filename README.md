@@ -1,5 +1,7 @@
 # Softwrd AI Job Task
 
+## Live Link: https://softwrd-svelte.vercel.app/
+
 ## Routes
 
 ### Layout (/layout):
