@@ -1,38 +1,34 @@
-# create-svelte
+# Softwrd AI Job Task
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Routes
 
-## Creating a project
+### Layout (/layout):
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Create Layout with CSS Grid System with Tailwind css grid classes.
+- In Desktop screen show all the block. But In small device Showing just 2 block and reduce width.
+- Create Mountain icon with only css.[apply content before after with tailwind css class ]
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### Chart (/chart):
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+1. create a writable svelte store.
+2. After Page OnMount fetch countries data to store that in svelte store variable.
+3. create a table with countries data.
+4. Install Chart.js for generate chart.
+5. Calculate top 10 population countries to generate chart.
 
-## Developing
+### Map (/map):
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. Install OpenLayer map (ol).
+2. Generate full screen width map after header.
+3. Trying to generate downloaded geojson vector data. But I cannot fetch that data and cannot access that file path.
+4. create a demo vector tiles for testing.
 
-```bash
-npm run dev
+#### Challanges:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Actually I'm React js/Next js Developer. I have no experience with svelte. That's why I face lots of problems,
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+1. Firstly I facing to generate svelte/store writeable value and use it.
+2. Then When I create a chart, after page reloading, I cannot get updated chart data array. after resolve it with another method.
+3. I face some problems with OnMount data and props drilling.
+4. In /map route, I cannot showed downloaded vector tiles geojson data. Trying to generate downloaded geojson vector data. But I cannot fetch that data and cannot access that file path.
+   But, I was collect a small size geojson data to showed it in map.

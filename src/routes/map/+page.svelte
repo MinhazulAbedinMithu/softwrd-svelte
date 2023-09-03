@@ -68,26 +68,26 @@
 	  map = new Map({
 		target: 'map-container',
 		layers: [
-		//   new TileLayer({
-		// 	source: new OSM(),
-		//   }),
-		//   new VectorLayer({
-		// 	source: new VectorSource({
-		// 	  features: new GeoJSON().readFeatures(geojson),
-		// 	}),
-		// 	style: style, // Apply the custom style to the features
-		//   }),
+		  new TileLayer({
+			source: new OSM(),
+		  }),
+		  new VectorLayer({
+			source: new VectorSource({
+			  features: new GeoJSON().readFeatures(geojson),
+			}),
+			style: style, // Apply the custom style to the features
+		  }),
 		new VectorLayer({
-  background: '#1a2b39',
-  source: new VectorSource({
-    // url: 'https://openlayers.org/data/vector/ecoregions.json',
-	url: 'https://github.com/datasets/geo-countries/blob/master/data/countries.geojson',
-    format: new GeoJSON(),
-  }),
-  style: {
-    'fill-color': ['string', ['get', 'COLOR'], '#eee'],
-  },
-})
+		  background: '#1a2b39',
+		  source: new VectorSource({
+		    // url: 'https://openlayers.org/data/vector/ecoregions.json',
+			url: 'https://github.com/datasets/geo-countries/blob/master/data/countries.geojson',
+		    format: new GeoJSON(),
+		  }),
+		  style: {
+		    'fill-color': ['string', ['get', 'COLOR'], '#eee'],
+		  },
+		})
 		],
 		view: new View({
 		  center: [0, 0],

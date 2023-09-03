@@ -61,18 +61,10 @@
   </script>
  
 
-<div class="text-column">
-	<h1 class="text-3xl text-green-600">Chart Page</h1>
-
-	<!-- {#each countries as country}
-  <div>{country.name.common}</div>
-{/each} -->
-</div>
 
 
 
-
-<div class="w-full flex items-start justify-between">
+<div class="px-4 md:px-14 py-2 w-full flex items-start justify-between">
 	<div class="w-1/2">
 		<table class="bg-white table-auto">
 			<thead>
@@ -92,7 +84,7 @@
 				  <td><img src={country.flags.png} alt={country.name.common} width="50" /></td>
 				  <td>{country.name.common}</td>
 				  <td>{country.cioc || ""}</td>
-				  <td>{country.unMember ? 'Yes' : 'No'}</td>
+				  <td class="text-center"><span class="bg-gray-300 px-2 py-1 rounded-sm">{country.unMember ? 'Yes' : 'No'}</span></td>
 				  <td>{country.currencies && Object.keys(country.currencies || {}).join(', ')}</td>
 				  <td>{country.population}</td>
 				  <td>{Object.values(country.languages || {})?.join(", ")}</td>
