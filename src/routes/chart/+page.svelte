@@ -5,11 +5,12 @@
 
 <script>
 	import { onMount } from 'svelte';
+    import Chart from 'chart.js/auto';
   	import { countryDataStore, fetchCountryData } from '../../lib/stores/countryDataStore';
-  import ChartCountry from './ChartCountry.svelte';
+//   import ChartCountry from './ChartCountry.svelte';
 
 	let countries = []; // Initialize as an empty array
-	export let top10Countries = [];
+	let top10Countries = [];
 	  // Function to get the top 10 countries by population
 	function getTop10Countries(countries) {
 		return countries
@@ -18,15 +19,45 @@
 		.slice(0, 10);
 	}
 
+	let chart;
+
   // Use onMount to fetch data when the component is mounted
   onMount(() => {
     fetchCountryData().then(() => {
       // Access the data from the store after it's fetched
       countries = $countryDataStore;
 	  top10Countries = getTop10Countries(countries);
-	  
+	  const ctx = document.getElementById("polar-area-chart").getContext("2d");
+     let data = {
+      labels: top10Countries.map(country => country.name.common),
+      datasets: [
+        {
+          label: "Population",
+          // data: [1444216107, 1393409038, 331002651, 273523615, 220892340, 212559417, 206139589, 164689383, 145934462, 128932753],
+          data: top10Countries.map(country => country.population),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(153, 102, 255, 0.5)',
+            'rgba(255, 159, 64, 0.5)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+          ],
+        },
+      ],
+    };
+      // Create the Polar Area Chart
+      chart = new Chart(ctx, {
+        type: "polarArea",
+        data: data,
+      });
     });
-  });
+    });
+	
   </script>
  
 
@@ -71,7 +102,9 @@
 		</table>
 	</div>
 	<div class="w-1/2">
-		<ChartCountry />
+		<!-- <ChartCountry /> -->
+
+		<canvas id="polar-area-chart" width="200" height="200"></canvas>
 	</div>
 </div>
   
